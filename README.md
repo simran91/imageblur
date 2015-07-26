@@ -6,6 +6,6 @@
 #
 
 # NOTES TO BUILD ON WINDOWS (64 bit)
-# GOOS=windows GOARCH=amd64 go build -o resize.exe resize.go
+# GOOS=windows GOARCH=amd64 go build -o blur.exe blur.go
 #
 
