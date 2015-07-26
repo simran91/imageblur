@@ -13,13 +13,12 @@ import (
 	"fmt"
 	"github.com/disintegration/imaging"
 	"image"
-	"image/png"
 	"io/ioutil"
 	"log"
 	"os"
 	"path/filepath"
-	"regexp"
 	"strconv"
+	"strings"
 )
 
 func main() {
@@ -33,15 +32,15 @@ func main() {
 	factors := map[string]string{
 		"0":  "",
 		"3":  "-blur3",
-		"6":  "-blur6",
-		"9":  "-blur9",
-		"12": "-blur12",
-		"15": "-blur15",
-		"18": "-blur18",
-		"21": "-blur21",
-		"24": "-blur24",
-		"27": "-blur27",
-		"30": "-blur30",
+// 		"6":  "-blur6",
+// 		"9":  "-blur9",
+// 		"12": "-blur12",
+// 		"15": "-blur15",
+// 		"18": "-blur18",
+// 		"21": "-blur21",
+// 		"24": "-blur24",
+// 		"27": "-blur27",
+//		"30": "-blur30",
 	}
 
 	//
@@ -88,17 +87,16 @@ func main() {
 			destFilenameWithDir := fmt.Sprintf("%s/%s%s%s", destPath, origFilenameBasename, factorName, origFilenameExt)
 
 			//
-			// Only process it if it's a png file!
+			// Detect filetype and process... 
 			//
-			matched, err := regexp.MatchString(".png$", origFilename)
-			errorCheck(err)
+			if (strings.HasSuffix(origFilename, ".png")) {
+				blueImage(origFilenameWithDir, destFilenameWithDir, factorFloat, imaging.PNG)
+			} else if (strings.HasSuffix(origFilename, ".jpg")) { 
+				blueImage(origFilenameWithDir, destFilenameWithDir, factorFloat, imaging.JPEG)
 
-			if matched {
-				blueImage(origFilenameWithDir, destFilenameWithDir, factorFloat)
-			} else {
-				fmt.Println("Not processing", origFilenameWithDir, "as it's not a png file")
+			}else {
+				fmt.Println("Not processing", origFilenameWithDir, "as it's type could not be detected")
 			}
-
 		}
 
 	}
@@ -110,7 +108,7 @@ func main() {
 /*
 	resizeImage: resize the image and save it
 */
-func blueImage(inFilename string, outFilename string, factor float64) {
+func blueImage(inFilename string, outFilename string, factor float64, format imaging.Format) {
 	//
 	// print a message about what we are converting
 	//
@@ -142,7 +140,9 @@ func blueImage(inFilename string, outFilename string, factor float64) {
 	errorCheck(err)
 	defer outfile.Close()
 
-	png.Encode(outfile, blurredImage)
+    imaging.Encode(outfile, blurredImage, format)
+
+	// png.Encode(outfile, blurredImage)
 
 }
 
