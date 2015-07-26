@@ -2,8 +2,8 @@
  *
  * Please see README.md for more information
  *
- * Usage: resize
- * Description: Resizes the files in the "orig" directory and outputs to an "auto-dest" directory
+ * Usage: blur
+ * Description: Blurr's the files in the "orig" directory and outputs to an "auto-dest" directory
  *
  */
 
