@@ -90,9 +90,9 @@ func main() {
 			// Detect filetype and process... 
 			//
 			if (strings.HasSuffix(origFilename, ".png")) {
-				blueImage(origFilenameWithDir, destFilenameWithDir, factorFloat, imaging.PNG)
+				blurImage(origFilenameWithDir, destFilenameWithDir, factorFloat, imaging.PNG)
 			} else if (strings.HasSuffix(origFilename, ".jpg")) { 
-				blueImage(origFilenameWithDir, destFilenameWithDir, factorFloat, imaging.JPEG)
+				blurImage(origFilenameWithDir, destFilenameWithDir, factorFloat, imaging.JPEG)
 
 			}else {
 				fmt.Println("Not processing", origFilenameWithDir, "as it's type could not be detected")
@@ -101,14 +101,14 @@ func main() {
 
 	}
 
-	// blueImage("orig/monk.png", "result.png", float64(3.5))
+	// blurImage("orig/monk.png", "result.png", float64(3.5))
 
 }
 
 /*
-	resizeImage: resize the image and save it
+	blurImage: blur the image and save it
 */
-func blueImage(inFilename string, outFilename string, factor float64, format imaging.Format) {
+func blurImage(inFilename string, outFilename string, factor float64, format imaging.Format) {
 	//
 	// print a message about what we are converting
 	//
